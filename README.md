@@ -1,27 +1,41 @@
 # DriveTwin
-Requer Node.js >= 22.13 (usa `node:sqlite`, sem dependências).
 
-    npm start                      # http://localhost:3000
-    npm run insert                 # insere o carro definido em scripts/insert-car.js
+Plataforma web para testar a eficiência de carros: catálogo com métricas e simulador 3D.
+
+## Como rodar
+
+Requer Node.js 22.13 ou superior. Não precisa instalar dependências.
+
+    npm start
+
+Acesse http://localhost:3000
 
 ## Páginas
-- `/` apresentação e métricas
-- `/catalogo` catálogo, métricas por carro, simulador 3D e comparação de eficiência
-- `/admin` login do administrador: cadastrar, editar e excluir veículos (somente admin)
 
-Admin: defina `ADMIN_USER` e `ADMIN_PASSWORD` antes do primeiro start (padrão: admin / drivetwin).
-Coloque a imagem do hero em `public/assets/hero-car.jpg`.
+- `/` apresentação do projeto e das métricas
+- `/catalogo` catálogo, métricas por carro, simulador 3D e comparação de eficiência
+- `/admin` área do administrador (cadastrar, editar e excluir veículos)
+
+## Administrador
+
+Só o administrador pode adicionar veículos ao catálogo. O login padrão é `admin` / `drivetwin`.
+Para trocar, defina `ADMIN_USER` e `ADMIN_PASSWORD` antes do primeiro start.
+
+Também é possível inserir um carro pelo terminal: edite `scripts/insert-car.js` e rode
+
+    npm run insert
 
 ## Como funciona
-**Banco (`cars`)** guarda só o que a simulação e as métricas usam:
-`brand, model, year, fuel_type (flex|gasolina)`, `mass_kg, power_cv, top_speed_kmh`, `tank_l, km_l_city, km_l_road, km_l_ethanol_city, km_l_ethanol_road, co2_g_km`.
-Consumo misto, autonomia, custo por km, 0–100 km/h e nota A–E são calculados (nada disso fica no banco).
-Os dados são validados em `lib/database.js` (usado pelo painel e pelo `insert-car`). Bancos da versão anterior são convertidos
-automaticamente no primeiro start (backup na tabela `cars_legacy`).
 
-**Simulação (`public/js/simulation.js`)** — o mesmo código roda no servidor (métricas) e no navegador (simulador):
-- massa, potência e velocidade máxima definem a aceleração (0–100 km/h) e o tempo do percurso;
-- percurso de 3 km: cidade (para a cada quadra), estrada (110 km/h) ou misto (55% cidade + 45% estrada);
-- consumo vem dos km/l do catálogo e sobe com mais pessoas a bordo (~1% a cada 45 kg).
+- **Banco (SQLite):** guarda só o necessário para a simulação: massa, potência, velocidade máxima, tanque, consumo (cidade e estrada, gasolina e etanol) e CO2.
+- **Calculado automaticamente:** consumo misto, autonomia, custo por km, 0 a 100 km/h e nota de A a E.
+- **Simulador:** percurso de 3 km (cidade, estrada ou misto), com combustível e número de pessoas a bordo. Mostra consumo, custo, emissões e tempo.
 
-Preços dos combustíveis: `FUEL_PRICES` em `public/js/simulation.js`.
+O cálculo fica em `public/js/simulation.js`. O preço dos combustíveis também é definido nesse arquivo.
+
+## Estrutura
+
+    server.js            inicia o servidor
+    lib/                 API, banco de dados e métricas
+    public/              páginas, estilos e simulador 3D
+    scripts/insert-car.js
