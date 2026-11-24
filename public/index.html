@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
-    <script type="module" src="/app.js"></script>
+    <script type="module" src="/js/home.js"></script>
   </head>
   <body>
     <svg class="svg-definitions" aria-hidden="true">
@@ -44,10 +44,10 @@
           <span>Drive<span>Twin</span></span>
         </a>
         <nav class="main-nav" aria-label="Navegação principal">
-          <a href="#plataforma">Plataforma</a><a href="#como-funciona">Como funciona</a>
+          <a href="/catalogo">Catálogo e simulação</a><a href="#como-funciona">Como funciona</a>
           <a href="#metricas">Métricas</a><a href="#marcas">Marcas</a>
         </nav>
-        <a class="button button-small" href="#plataforma">Iniciar teste</a>
+        <a class="button button-small" href="/catalogo">Iniciar teste</a>
       </div>
     </header>
 
@@ -61,7 +61,7 @@
             <h1>Teste a eficiência de qualquer carro <span>antes de dirigir.</span></h1>
             <p>O DriveTwin reúne carros de várias marcas e um simulador 3D lado a lado para você medir consumo de combustível, autonomia, emissões e desempenho em percursos reais.</p>
             <div class="hero-actions">
-              <a class="button button-large" href="#plataforma">Explorar plataforma <svg class="icon"><use href="#i-arrow" /></svg></a>
+              <a class="button button-large" href="/catalogo">Abrir catálogo <svg class="icon"><use href="#i-arrow" /></svg></a>
               <a class="button button-large button-soft" href="#como-funciona"><svg class="icon"><use href="#i-play" /></svg>Como funciona</a>
             </div>
           </div>
@@ -78,33 +78,6 @@
           <p class="eyebrow">Marcas</p><h2>Carros de várias marcas, num só lugar</h2>
         </div>
         <div class="marquee-mask"><div class="marquee" id="brands-list"></div></div>
-      </section>
-
-      <section id="plataforma" class="platform-section blueprint">
-        <div class="container">
-          <div class="section-heading centered narrow">
-            <p class="eyebrow">A plataforma</p><h2>Tudo o que você precisa para testar um carro</h2>
-            <p>Navegue pelas abas e conheça cada parte do DriveTwin. Os carros abaixo vêm do banco SQLite.</p>
-          </div>
-          <div class="tabs" role="tablist" aria-label="Recursos da plataforma">
-            <button class="tab" role="tab" aria-selected="false" data-tab="catalogo"><svg class="icon"><use href="#i-list" /></svg>Catálogo</button>
-            <button class="tab active" role="tab" aria-selected="true" data-tab="simulador"><svg class="icon"><use href="#i-box" /></svg>Simulador 3D</button>
-            <button class="tab" role="tab" aria-selected="false" data-tab="consumo"><svg class="icon"><use href="#i-fuel" /></svg>Consumo</button>
-            <button class="tab" role="tab" aria-selected="false" data-tab="relatorios"><svg class="icon"><use href="#i-chart" /></svg>Relatórios</button>
-          </div>
-          <div class="platform-grid" role="tabpanel" aria-live="polite">
-            <div class="tab-description">
-              <span class="feature-icon" id="tab-icon"><svg class="icon"><use href="#i-box" /></svg></span>
-              <h3 id="tab-title">Simulador 3D ao lado da lista</h3>
-              <p id="tab-text"></p><ul id="tab-bullets"></ul>
-            </div>
-            <div class="mock-frame">
-              <div class="browser-bar"><span></span><span></span><span></span><code>drivetwin.app</code></div>
-              <div class="mock-content" id="mock-content"><p class="loading">Carregando carros do SQLite…</p></div>
-              <p class="sample-note">Dados ilustrativos · SQLite nativo do Node.js</p>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section id="como-funciona" class="steps-section">
@@ -130,12 +103,16 @@
             <article><div><svg class="icon"><use href="#i-timer" /></svg><code>0–100 km/h</code></div><h3>Desempenho</h3><p>Aceleração e retomada simuladas.</p></article>
             <article><div><svg class="icon"><use href="#i-battery" /></svg><code>nota A–E</code></div><h3>Eficiência energética</h3><p>Uma nota simples para comparar.</p></article>
           </div>
+          <div class="metrics-note">
+            <h3>Como a nota de eficiência é calculada</h3>
+            <p>Peso de 50% para o consumo misto, 35% para as emissões de CO₂ e 15% para a aceleração de 0–100 km/h. Nota A a partir de 80 pontos, B de 65, C de 50, D de 35 e E abaixo disso. O custo por km usa o preço do litro de cada combustível dividido pelo consumo misto.</p>
+          </div>
         </div>
       </section>
 
-      <section class="final-section"><div class="container"><div class="final-card blueprint"><div><h2>Pronto para testar seu próximo carro?</h2><p>Escolha um modelo, rode a simulação e descubra quanto ele realmente consome.</p><a class="button button-large button-navy" href="#plataforma">Começar agora <svg class="icon"><use href="#i-arrow" /></svg></a></div></div></div></section>
+      <section class="final-section"><div class="container"><div class="final-card blueprint"><div><h2>Pronto para testar seu próximo carro?</h2><p>Escolha um modelo, rode a simulação e descubra quanto ele realmente consome.</p><a class="button button-large button-navy" href="/catalogo">Começar agora <svg class="icon"><use href="#i-arrow" /></svg></a></div></div></div></section>
     </main>
 
-    <footer><div class="container footer-inner"><a class="logo" href="#inicio"><span class="logo-mark"><svg class="icon"><use href="#i-gauge" /></svg></span><span>Drive<span>Twin</span></span></a><p>© <span id="year"></span> DriveTwin · Laboratório virtual de eficiência automotiva</p></div></footer>
+    <footer><div class="container footer-inner"><a class="logo" href="#inicio"><span class="logo-mark"><svg class="icon"><use href="#i-gauge" /></svg></span><span>Drive<span>Twin</span></span></a><p>© <span id="year"></span> DriveTwin · Laboratório virtual de eficiência automotiva · <a href="/admin">Admin</a></p></div></footer>
   </body>
 </html>

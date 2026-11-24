@@ -1,15 +1,12 @@
 {
-  "name": "drivetwin-node",
+  "name": "drivetwin",
   "version": "1.0.0",
   "private": true,
-  "description": "Página de apresentação do DriveTwin com Node.js, SQLite nativo, HTML, CSS e JavaScript.",
   "type": "module",
-  "engines": {
-    "node": ">=22.5.0"
-  },
+  "engines": { "node": ">=22.13" },
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "test": "node --test"
+    "insert": "node scripts/insert-car.js"
   }
 }

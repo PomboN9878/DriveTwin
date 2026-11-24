@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Catálogo e simulação — DriveTwin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/pages.css" />
+  </head>
+  <body>
+    <svg class="svg-definitions" aria-hidden="true"><defs><symbol id="i-gauge" viewBox="0 0 24 24"><path d="M20 13a8 8 0 1 0-16 0M12 13l4-4M4 19h16"/></symbol></defs></svg>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="/" aria-label="DriveTwin — início"><span class="logo-mark"><svg class="icon"><use href="#i-gauge" /></svg></span><span>Drive<span>Twin</span></span></a>
+        <nav class="main-nav" aria-label="Navegação principal"><a href="/">Apresentação</a><a href="/catalogo" aria-current="page">Catálogo e simulação</a><a href="/admin" >Admin</a></nav>
+      </div>
+    </header>
+    <main class="page container">
+      <div class="section-heading"><p class="eyebrow">Catálogo e simulação</p><h1>Escolha um carro e teste a eficiência</h1><p>Os dados vêm do banco SQLite. Ao selecionar um carro, o simulador 3D recebe massa, potência, Cd e área frontal dele.</p></div>
+
+      <div class="cat-layout">
+        <aside class="panel">
+          <h2 class="panel-title">Carros</h2>
+          <ul class="car-list" id="car-list"><li class="loading">Carregando carros…</li></ul>
+        </aside>
+        <section class="panel" aria-live="polite">
+          <div class="car-head"><div><h2 id="car-title" class="panel-title">—</h2><p id="car-sub" class="muted"></p></div><span class="grade" id="car-grade" aria-label="Nota de eficiência">–</span></div>
+          <div class="metric-tiles" id="car-metrics"></div>
+        </section>
+      </div>
+
+      <section class="panel sim" aria-label="Simulador 3D">
+        <h2 class="panel-title">Simulador 3D</h2>
+        <div class="sim-view" id="view"><div id="hud"><b id="hv">0</b> <small>km/h</small></div><div id="warn">Tração no limite</div></div>
+        <div class="sim-grid">
+          <label><span>Massa <b id="o_m"></b></span><input id="m" type="range" min="700" max="3000" step="10" value="1400"></label>
+          <label><span>Potência <b id="o_p"></b></span><input id="p" type="range" min="40" max="600" step="5" value="150"></label>
+          <label><span>Coef. de arrasto (Cd) <b id="o_cd"></b></span><input id="cd" type="range" min="0.20" max="0.60" step="0.01" value="0.30"></label>
+          <label><span>Área frontal <b id="o_a"></b></span><input id="a" type="range" min="1.5" max="3.5" step="0.05" value="2.2"></label>
+          <label><span>Inclinação da pista <b id="o_s"></b></span><input id="s" type="range" min="-15" max="15" step="1" value="0"></label>
+          <label><span>Velocidade alvo <b id="o_t"></b></span><input id="t" type="range" min="0" max="250" step="5" value="120"></label>
+          <label><span>Condição da pista</span><select id="r"><option value="seca">Asfalto seco</option><option value="molhada">Asfalto molhado</option><option value="cascalho">Cascalho</option><option value="gelo">Gelo</option></select></label>
+        </div>
+        <div class="sim-actions">
+          <button class="button button-large" id="go" type="button">Acelerar</button>
+          <button class="button button-large button-soft" id="br" type="button">Frear (segure)</button>
+          <button class="button button-large button-soft" id="rs" type="button">Reiniciar</button>
+        </div>
+        <div class="kpis">
+          <div><small>0–100 km/h simulado</small><b id="k0"></b></div><div><small>Vel. máxima</small><b id="kv"></b></div><div><small>Frenagem 100→0</small><b id="kb"></b></div>
+          <div><small>Aceleração</small><b id="ka">0 m/s²</b></div><div><small>Força de arrasto</small><b id="kd">0 N</b></div><div><small>Distância</small><b id="kx">0 m</b></div>
+        </div>
+        <small class="muted">Velocidade (km/h) nos últimos 30 s</small>
+        <canvas id="chart"></canvas>
+        <p class="muted note">Modelo longitudinal: F = min(P/v, μ·m·g·0,5) − ½ρ·Cd·A·v² − Crr·m·g·cosθ − m·g·sinθ, integrado a 60 Hz. Os valores de μ e Crr são típicos aproximados.</p>
+      </section>
+
+      <section class="panel" aria-label="Eficiência por modelo">
+        <h2 class="panel-title">Eficiência por modelo</h2>
+        <div class="table-wrap"><table class="eff-table"><thead><tr><th>Modelo</th><th>Consumo misto</th><th>Autonomia</th><th>CO₂</th><th>Custo/km</th><th>0–100 km/h</th><th>Nota</th></tr></thead><tbody id="eff-body"></tbody></table></div>
+      </section>
+    </main>
+    <script src="/vendor/three.min.js"></script>
+    <script type="module" src="/js/catalogo.js"></script>
+  </body>
+</html>

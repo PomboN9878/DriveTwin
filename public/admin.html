@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin — DriveTwin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/pages.css" />
+  </head>
+  <body>
+    <svg class="svg-definitions" aria-hidden="true"><defs><symbol id="i-gauge" viewBox="0 0 24 24"><path d="M20 13a8 8 0 1 0-16 0M12 13l4-4M4 19h16"/></symbol></defs></svg>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="/" aria-label="DriveTwin — início"><span class="logo-mark"><svg class="icon"><use href="#i-gauge" /></svg></span><span>Drive<span>Twin</span></span></a>
+        <nav class="main-nav" aria-label="Navegação principal"><a href="/">Apresentação</a><a href="/catalogo" >Catálogo e simulação</a><a href="/admin" aria-current="page">Admin</a></nav>
+      </div>
+    </header>
+    <main class="page container narrow-page">
+      <section class="panel" id="login-view" hidden>
+        <h1 class="panel-title">Entrar na área administrativa</h1>
+        <form id="login-form" class="login-form">
+          <label><span>Usuário</span><input name="username" autocomplete="username" required></label>
+          <label><span>Senha</span><input name="password" type="password" autocomplete="current-password" required></label>
+          <p class="error-message" id="login-error" role="alert" hidden></p>
+          <button class="button button-large" type="submit">Entrar</button>
+        </form>
+      </section>
+      <section class="panel" id="panel-view" hidden>
+        <span class="eyebrow-pill">Em desenvolvimento</span>
+        <h1 class="panel-title">Área administrativa</h1>
+        <p class="muted">O cadastro e a edição de carros pela interface ainda estão sendo construídos. Por enquanto, insira dados com <code>npm run insert</code> (veja <code>scripts/insert-car.js</code>).</p>
+        <p class="muted">Conectado como <b id="who"></b>.</p>
+        <button class="button button-large button-soft" id="logout" type="button">Sair</button>
+      </section>
+    </main>
+    <script type="module" src="/js/admin.js"></script>
+  </body>
+</html>
