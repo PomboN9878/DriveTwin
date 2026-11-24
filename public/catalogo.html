@@ -19,7 +19,7 @@
       </div>
     </header>
     <main class="page container">
-      <div class="section-heading"><p class="eyebrow">Catálogo e simulação</p><h1>Escolha um carro e teste a eficiência</h1><p>Os dados vêm do banco SQLite. Ao selecionar um carro, o simulador 3D recebe massa, potência, Cd e área frontal dele.</p></div>
+      <div class="section-heading"><p class="eyebrow">Catálogo e simulação</p><h1>Escolha um carro e teste a eficiência</h1><p>Selecione um carro, escolha o percurso e rode o teste no simulador 3D. Os resultados mostram consumo, custo e emissões.</p></div>
 
       <div class="cat-layout">
         <aside class="panel">
@@ -34,28 +34,27 @@
 
       <section class="panel sim" aria-label="Simulador 3D">
         <h2 class="panel-title">Simulador 3D</h2>
-        <div class="sim-view" id="view"><div id="hud"><b id="hv">0</b> <small>km/h</small></div><div id="warn">Tração no limite</div></div>
+        <p class="muted sim-car" id="sim-car">Selecione um carro na lista.</p>
+        <div class="sim-view" id="view"><div id="hud"><b id="hv">0</b> <small>km/h</small></div><div class="sim-progress"><i id="prog"></i></div></div>
         <div class="sim-grid">
-          <label><span>Massa <b id="o_m"></b></span><input id="m" type="range" min="700" max="3000" step="10" value="1400"></label>
-          <label><span>Potência <b id="o_p"></b></span><input id="p" type="range" min="40" max="600" step="5" value="150"></label>
-          <label><span>Coef. de arrasto (Cd) <b id="o_cd"></b></span><input id="cd" type="range" min="0.20" max="0.60" step="0.01" value="0.30"></label>
-          <label><span>Área frontal <b id="o_a"></b></span><input id="a" type="range" min="1.5" max="3.5" step="0.05" value="2.2"></label>
-          <label><span>Inclinação da pista <b id="o_s"></b></span><input id="s" type="range" min="-15" max="15" step="1" value="0"></label>
-          <label><span>Velocidade alvo <b id="o_t"></b></span><input id="t" type="range" min="0" max="250" step="5" value="120"></label>
-          <label><span>Condição da pista</span><select id="r"><option value="seca">Asfalto seco</option><option value="molhada">Asfalto molhado</option><option value="cascalho">Cascalho</option><option value="gelo">Gelo</option></select></label>
+          <label><span>Percurso</span><select id="route"><option value="cidade">Cidade</option><option value="estrada">Estrada</option><option value="misto">Misto (cidade + estrada)</option></select></label>
+          <label><span>Combustível</span><select id="fuel"><option value="gasolina">Gasolina</option><option value="etanol">Etanol</option></select></label>
+          <label><span>Pessoas a bordo</span><select id="persons"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
         </div>
         <div class="sim-actions">
-          <button class="button button-large" id="go" type="button">Acelerar</button>
-          <button class="button button-large button-soft" id="br" type="button">Frear (segure)</button>
+          <button class="button button-large" id="go" type="button">Iniciar teste</button>
           <button class="button button-large button-soft" id="rs" type="button">Reiniciar</button>
         </div>
         <div class="kpis">
-          <div><small>0–100 km/h simulado</small><b id="k0"></b></div><div><small>Vel. máxima</small><b id="kv"></b></div><div><small>Frenagem 100→0</small><b id="kb"></b></div>
-          <div><small>Aceleração</small><b id="ka">0 m/s²</b></div><div><small>Força de arrasto</small><b id="kd">0 N</b></div><div><small>Distância</small><b id="kx">0 m</b></div>
+          <div><small>Tempo</small><b id="k-time">0:00</b></div><div><small>Distância</small><b id="k-km">0,00 km</b></div><div><small>Combustível gasto</small><b id="k-litres">0,00 L</b></div><div><small>Custo</small><b id="k-cost">R$ 0,00</b></div>
         </div>
-        <small class="muted">Velocidade (km/h) nos últimos 30 s</small>
+        <small class="muted">Velocidade (km/h) durante o teste</small>
         <canvas id="chart"></canvas>
-        <p class="muted note">Modelo longitudinal: F = min(P/v, μ·m·g·0,5) − ½ρ·Cd·A·v² − Crr·m·g·cosθ − m·g·sinθ, integrado a 60 Hz. Os valores de μ e Crr são típicos aproximados.</p>
+        <div id="result" hidden>
+          <h3 class="panel-title result-title">Resultado do teste</h3>
+          <div class="metric-tiles" id="result-tiles"></div>
+        </div>
+        <p class="muted note" id="sim-note"></p>
       </section>
 
       <section class="panel" aria-label="Eficiência por modelo">
